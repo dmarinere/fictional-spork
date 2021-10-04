@@ -33,7 +33,7 @@ def pnuemonia_router():
     if path is not None:
       path = requests.get(path).content
       
-    image = Image.open(path)
+    image = Image.open(BytesIO(path))
     if image.mode != 'L':
         image = image.convert('L')
 
