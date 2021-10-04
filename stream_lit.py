@@ -20,7 +20,9 @@ def pnuemonia_router():
 
     path = st.file_uploader('Please upload an Xray Scan Image to detect if there is Pneumonia.. ','')
     if path is not None:  
-        image = Image.open(BytesIO(path))
+    #    image = Image.open(BytesIO(path))
+        image = Image.open(path)
+
         if image.mode != 'L':
             image = image.convert('L')
 
