@@ -37,10 +37,10 @@ def pnuemonia_router():
     st.write("Predicted Class :")
     with st.spinner('classifying.....'):
       st.markdown("**The result of your analysis is**")
-      graph = tf.compat.v1.get_default_graph()
-      with graph.as_default():
+   #   graph = tf.compat.v1.get_default_graph()
+    #  with graph.as_default():
         #prediction = model.predict_proba(image)
-        label = model.predict(decode_img(image))
+      label = model.predict(decode_img(image))
       predicted_class = 'pneumonia' if label[0] > 0.5 else 'normal'
       st.write(predicted_class) 
       st.write(label)
