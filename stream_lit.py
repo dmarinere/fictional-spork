@@ -23,8 +23,7 @@ def scale(image):
 def decode_img(image):
   img = tf.image.decode_jpeg(image, channels=3)
   img = scale(img)
-  img = img_to_array(img)
-  return img.reshape(1, 64, 64, 1)
+  return np.expand_dims(img, axis=0)
 
 def pnuemonia_router():
     model = define_model()
