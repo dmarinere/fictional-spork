@@ -18,30 +18,30 @@ def pnuemonia_router():
     model = define_model()
     model.load_weights('weights.h5')
 
-    path = st.file_uploader('Enter Image URL to detect if there is Pneumonia.. ','')
-      
-    image = Image.open(BytesIO(path))
-    if image.mode != 'L':
-        image = image.convert('L')
+    path = st.file_uploader('Please upload an Xray Scan Image to detect if there is Pneumonia.. ','')
+    if path is not None:  
+        image = Image.open(BytesIO(path))
+        if image.mode != 'L':
+            image = image.convert('L')
 
-    image = image.resize((64, 64))
-    image = img_to_array(image)/255.0
-    image = image.reshape(1, 64, 64, 1)
+        image = image.resize((64, 64))
+        image = img_to_array(image)/255.0
+        image = image.reshape(1, 64, 64, 1)
      # image = Image.open(io.BytesIO(path))
 
-    st.write("Predicted Class :")
-    with st.spinner('classifying.....'):
-      st.markdown("**The result of your analysis is**")
+        st.write("Predicted Class :")
+        with st.spinner('classifying.....'):
+            st.markdown("**The result of your analysis is**")
    #   graph = tf.compat.v1.get_default_graph()
     #  with graph.as_default():
         #prediction = model.predict_proba(image)
-      label = model.predict(image)
+        label = model.predict(image)
     #  label = model.predict(decode_img(image))
-      predicted_class = 'pneumonia' if label[0] > 0.5 else 'normal'
-      if predicted_class == 'pneumonia':
-        st.markdown(f"The Xray scan model has revealed that it has a case of {predicted_class} with {label} Probability")
-      else:                                  
-        st.markdown(f"The Xray scan model revealed that this is a {predicted_class}")
+        predicted_class = 'pneumonia' if label[0] > 0.5 else 'normal'
+        if predicted_class == 'pneumonia':
+            st.markdown(f"The Xray scan model has revealed that it has a case of {predicted_class} with {label} Probability")
+        else:                                  
+            st.markdown(f"The Xray scan model revealed that this is a {predicted_class}")
     
 def define_model():
     model = Sequential()
