@@ -31,7 +31,15 @@ def pnuemonia_router():
 
     path = st.text_input('Enter Image URL to Classify.. ','https://raw.githubusercontent.com/happilyeverafter95/pneumonia-detection/master/fixtures/pneumonia_2.jpeg')
     if path is not None:
-      image = requests.get(path).content
+      path = requests.get(path).content
+      
+    image = Image(path)
+    if image.mode != 'L':
+        image = image.convert('L')
+
+    image = image.resize((64, 64))
+    image = img_to_array(image)/255.0
+    image = image.reshape(1, 64, 64, 1)
      # image = Image.open(io.BytesIO(path))
 
     st.write("Predicted Class :")
@@ -40,7 +48,8 @@ def pnuemonia_router():
    #   graph = tf.compat.v1.get_default_graph()
     #  with graph.as_default():
         #prediction = model.predict_proba(image)
-      label = model.predict(decode_img(image))
+      label = model.predict(image)
+    #  label = model.predict(decode_img(image))
       predicted_class = 'pneumonia' if label[0] > 0.5 else 'normal'
       st.write(predicted_class) 
       st.write(label)
