@@ -32,7 +32,7 @@ def pnuemonia_router():
     path = st.text_input('Enter Image URL to Classify.. ','https://raw.githubusercontent.com/happilyeverafter95/pneumonia-detection/master/fixtures/pneumonia_2.jpeg')
     if path is not None:
       image = requests.get(path).content
-      image = Image.open(io.BytesIO(path))
+     # image = Image.open(io.BytesIO(path))
 
     st.write("Predicted Class :")
     with st.spinner('classifying.....'):
