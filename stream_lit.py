@@ -1,6 +1,6 @@
-from keras.models import Sequential
-from keras.layers import Dense, Flatten
-from keras.layers import Conv2D, MaxPooling2D
+from tensorflow.keras.layers import Conv2D, MaxPooling2D
+from tensorflow.keras import Sequential
+from tensorflow.keras.layers import Dense,Flatten 
 import tensorflow as tf
 import streamlit as st
 from keras.preprocessing.image import img_to_array
