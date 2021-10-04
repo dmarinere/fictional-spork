@@ -3,7 +3,7 @@ from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense,Flatten 
 import tensorflow as tf
 import streamlit as st
-from keras.preprocessing.image import img_to_array
+from tensorflow.keras.preprocessing.image import img_to_array
 import streamlit as st
 import requests
 from PIL import Image
@@ -23,6 +23,7 @@ def scale(image):
 def decode_img(image):
   img = tf.image.decode_jpeg(image, channels=3)
   img = scale(img)
+  img = img_to_array(img)
   return np.expand_dims(img, axis=0)
 
 def pnuemonia_router():
