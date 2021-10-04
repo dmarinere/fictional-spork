@@ -14,24 +14,11 @@ st.write(st.__version__)
 st.title("Web App to Predict Xray Result Image and detect Pneumonia")
 
 
-def scale(image):
-  image = tf.cast(image, tf.float32)
-  image /= 255.0
-  
-  return tf.image.resize(image,[64,64])
-
-def decode_img(image):
-  img = tf.image.decode_jpeg(image, channels=3)
-  img = scale(img)
-  return tf.expand_dims(img, axis=0)
-
 def pnuemonia_router():
     model = define_model()
     model.load_weights('weights.h5')
 
-    path = st.text_input('Enter Image URL to Classify.. ','https://raw.githubusercontent.com/happilyeverafter95/pneumonia-detection/master/fixtures/pneumonia_2.jpeg')
-    if path is not None:
-      path = requests.get(path).content
+    path = st.file_uploader('Enter Image URL to detect if there is Pneumonia.. ','')
       
     image = Image.open(BytesIO(path))
     if image.mode != 'L':
@@ -51,8 +38,10 @@ def pnuemonia_router():
       label = model.predict(image)
     #  label = model.predict(decode_img(image))
       predicted_class = 'pneumonia' if label[0] > 0.5 else 'normal'
-      st.write(predicted_class) 
-      st.write(label)
+      if predicted_class == 'pneumonia':
+        st.markdown(f"The Xray scan model has revealed that it has a case of {predicted_class} with {label} Probability)
+      else:                                  
+        st.markdown(f"The Xray scan model revealed that this is a {predicted_class})
     
 def define_model():
     model = Sequential()
