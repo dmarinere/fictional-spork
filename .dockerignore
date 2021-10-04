@@ -1,7 +1,0 @@
-.DS_Store
-*.mypy_cache
-.envrc
-classifier/data/**
-.direnv/
-.gitignore
-.git
