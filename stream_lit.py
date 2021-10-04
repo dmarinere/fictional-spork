@@ -39,9 +39,9 @@ def pnuemonia_router():
     #  label = model.predict(decode_img(image))
       predicted_class = 'pneumonia' if label[0] > 0.5 else 'normal'
       if predicted_class == 'pneumonia':
-        st.markdown(f"The Xray scan model has revealed that it has a case of {predicted_class} with {label} Probability)
+        st.markdown(f"The Xray scan model has revealed that it has a case of {predicted_class} with {label} Probability")
       else:                                  
-        st.markdown(f"The Xray scan model revealed that this is a {predicted_class})
+        st.markdown(f"The Xray scan model revealed that this is a {predicted_class}")
     
 def define_model():
     model = Sequential()
